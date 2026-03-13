@@ -163,7 +163,7 @@ const VenueListCard = ({ venue }: { venue: Venue }) => {
     <Link to={`/venue/${venue.id}`} className="block">
       <div className="bg-card rounded-xl border border-border/40 overflow-hidden flex flex-col lg:flex-row hover:border-foreground/10 transition-all duration-300 hover:shadow-lg hover:shadow-black/5">
         {/* Images: 60% width — left big 40%, right 2 stacked 20% */}
-        <div className="lg:w-[60%] shrink-0 flex" style={{ height: 250 }}>
+        <div className="lg:w-[60%] shrink-0 flex" style={{ height: 300 }}>
           {/* Big image — roughly 2/3 of image area */}
           <div className="relative w-[66%] overflow-hidden">
             <img src={venue.images[imgIndex]} alt={venue.name} className="w-full h-full object-cover" />
@@ -197,7 +197,7 @@ const VenueListCard = ({ venue }: { venue: Venue }) => {
           <p className="text-sm text-muted-foreground font-body flex items-center gap-1 mb-2">
             <MapPin className="w-3.5 h-3.5" /> {venue.location}
           </p>
-          <p className="text-sm text-muted-foreground font-body leading-relaxed mb-4 line-clamp-3">{venue.description}</p>
+          <p className="text-sm text-muted-foreground font-body leading-relaxed mb-4 line-clamp-5">{venue.description}</p>
 
           {/* Stats */}
           <div className="flex flex-wrap gap-1.5 mb-3">
@@ -210,7 +210,7 @@ const VenueListCard = ({ venue }: { venue: Venue }) => {
           </div>
 
           {/* Amenities */}
-          <div className="flex flex-wrap gap-1.5 mt-auto">
+          <div className="flex flex-wrap gap-1.5">
             {venue.amenities.slice(0, 4).map((a) => (
               <span key={a} className="inline-flex items-center gap-1 text-xs text-foreground/80 px-2 py-1 rounded-md font-body border border-foreground/15">
                 {amenityIcons[a] || "✨"} {a}
