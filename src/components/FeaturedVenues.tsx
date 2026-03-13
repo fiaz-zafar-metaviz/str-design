@@ -37,9 +37,9 @@ const FeaturedVenues = () => {
         </div>
 
         <div className="text-center mt-12">
-          <button className="border border-primary/30 text-primary px-8 py-3 rounded-xl hover:bg-primary/10 transition-colors font-body font-medium">
+          <Link to="/venues" className="border border-primary/30 text-primary px-8 py-3 rounded-xl hover:bg-primary/10 transition-colors font-body font-medium inline-block">
             View All Venues
-          </button>
+          </Link>
         </div>
       </div>
     </section>
