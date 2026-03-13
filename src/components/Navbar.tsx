@@ -43,16 +43,16 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-3 bg-background/80 backdrop-blur-lg border-b border-border/30">
+      <nav className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-4">
         <Link to="/">
-          <img src="https://www.strwedding.com/images/strlogo.webp" alt="STR Wedding" className="h-8 w-auto" />
+          <img src="https://www.strwedding.com/images/strlogo.webp" alt="STR Wedding" className="h-12 md:h-14 w-auto" />
         </Link>
 
         <button
           onClick={() => setSidebarOpen(true)}
-          className="w-10 h-10 rounded-xl bg-secondary/50 hover:bg-secondary flex items-center justify-center transition-colors"
+          className="w-11 h-11 rounded-xl bg-white/10 backdrop-blur-sm hover:bg-white/20 flex items-center justify-center transition-colors border border-white/10"
         >
-          <Menu className="w-5 h-5 text-foreground" />
+          <Menu className="w-5 h-5 text-white" />
         </button>
       </nav>
 
@@ -70,7 +70,6 @@ const Navbar = () => {
           sidebarOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        {/* Sidebar Header */}
         <div className="flex items-center justify-between p-5 border-b border-border/30">
           <span className="font-display font-semibold text-lg text-foreground">Menu</span>
           <button
@@ -81,7 +80,6 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Nav Links */}
         <div className="flex-1 p-4 flex flex-col gap-1">
           {navLinks.map((link) => (
             <Link
@@ -96,7 +94,6 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Theme Toggle at Bottom */}
         <div className="p-4 border-t border-border/30">
           <button
             onClick={toggleTheme}
@@ -106,7 +103,7 @@ const Navbar = () => {
               {isDark ? <Moon className="w-4 h-4 text-primary" /> : <Sun className="w-4 h-4 text-primary" />}
               <span className="text-sm font-body text-foreground/80">{isDark ? "Dark Mode" : "Light Mode"}</span>
             </div>
-            <div className={`w-10 h-5 rounded-full relative transition-colors ${isDark ? "bg-primary/30" : "bg-primary/30"}`}>
+            <div className="w-10 h-5 rounded-full relative bg-primary/30">
               <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-primary transition-all ${isDark ? "right-0.5" : "left-0.5"}`} />
             </div>
           </button>

@@ -16,14 +16,18 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
-      {/* Background image */}
+      {/* Video Background */}
       <div className="absolute inset-0">
-        <img
-          src="https://www.strwedding.com/images/photo-1501785888041-af3ef285b470.jfif"
-          alt="Luxury wedding venue at sunset"
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
           className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/30 to-background/90" />
+        >
+          <source src="https://devbilal.com/wp-content/uploads/wedding.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-background/90" />
       </div>
 
       {/* Content */}
@@ -32,11 +36,11 @@ const HeroSection = () => {
           Short Term Rental Wedding Venues
         </p>
         <h1 className="text-5xl md:text-7xl font-display font-bold leading-tight mb-6">
-          <span className="text-foreground">Find Your Dream</span>
+          <span className="text-white">Find Your Dream</span>
           <br />
           <span className="text-gold-gradient">Wedding Venue</span>
         </h1>
-        <p className="text-foreground/70 text-lg max-w-xl mx-auto mb-12 font-body font-light">
+        <p className="text-white/70 text-lg max-w-xl mx-auto mb-12 font-body font-light">
           Discover stunning short term rental venues for unforgettable celebrations. Make your wedding last a week, not just a day.
         </p>
 
@@ -45,36 +49,36 @@ const HeroSection = () => {
           <div className="flex items-center gap-3 px-4 py-2 flex-1 min-w-0">
             <MapPin className="w-5 h-5 text-primary shrink-0" />
             <div className="text-left flex-1">
-              <p className="text-xs font-semibold text-foreground font-body">Location</p>
+              <p className="text-xs font-semibold text-white font-body">Location</p>
               <input
                 type="text"
                 placeholder="Where to?"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                className="text-sm text-muted-foreground font-body bg-transparent outline-none w-full"
+                className="text-sm text-white/60 font-body bg-transparent outline-none w-full placeholder:text-white/40"
               />
             </div>
           </div>
-          <div className="hidden md:block w-px h-10 bg-border" />
+          <div className="hidden md:block w-px h-10 bg-white/20" />
           <div className="flex items-center gap-3 px-4 py-2 flex-1 min-w-0">
             <Users className="w-5 h-5 text-primary shrink-0" />
             <div className="text-left flex-1">
-              <p className="text-xs font-semibold text-foreground font-body">Guests</p>
+              <p className="text-xs font-semibold text-white font-body">Guests</p>
               <input
                 type="number"
                 placeholder="How many?"
                 value={guests}
                 onChange={(e) => setGuests(e.target.value)}
-                className="text-sm text-muted-foreground font-body bg-transparent outline-none w-full"
+                className="text-sm text-white/60 font-body bg-transparent outline-none w-full placeholder:text-white/40"
               />
             </div>
           </div>
-          <div className="hidden md:block w-px h-10 bg-border" />
+          <div className="hidden md:block w-px h-10 bg-white/20" />
           <div className="flex items-center gap-3 px-4 py-2 flex-1 min-w-0">
             <CalendarDays className="w-5 h-5 text-primary shrink-0" />
             <div className="text-left">
-              <p className="text-xs font-semibold text-foreground font-body">Dates</p>
-              <p className="text-sm text-muted-foreground font-body">When?</p>
+              <p className="text-xs font-semibold text-white font-body">Dates</p>
+              <p className="text-sm text-white/40 font-body">When?</p>
             </div>
           </div>
           <button
@@ -101,7 +105,7 @@ const HeroSection = () => {
 const Stat = ({ value, label }: { value: string; label: string }) => (
   <div className="text-center">
     <p className="text-2xl md:text-3xl font-display font-bold text-primary">{value}</p>
-    <p className="text-sm text-foreground/60 font-body">{label}</p>
+    <p className="text-sm text-white/60 font-body">{label}</p>
   </div>
 );
 
