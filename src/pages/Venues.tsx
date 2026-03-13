@@ -59,8 +59,8 @@ const Venues = () => {
   const [searchLocation, setSearchLocation] = useState(locationParam);
   const [searchGuests, setSearchGuests] = useState("");
 
-  const pageTitle = searchLocation
-    ? `Short Term Rental Wedding Venues in ${searchLocation}`
+  const pageTitle = locationParam
+    ? `Short Term Rental Wedding Venues in ${locationParam}`
     : "Short Term Rental Wedding Venues";
 
   const filtered = allVenues.filter((v) => {
@@ -69,8 +69,10 @@ const Venues = () => {
     return matchLoc && matchGuests;
   });
 
-  const visible = filtered.slice(0, visibleCount);
-  const hasMore = visibleCount < filtered.length;
+  // If location param from homepage has no matches, show all venues
+  const displayVenues = filtered.length === 0 && locationParam && !searchGuests ? allVenues : filtered;
+  const visible = displayVenues.slice(0, visibleCount);
+  const hasMore = visibleCount < displayVenues.length;
 
   return (
     <div className="min-h-screen bg-background">
@@ -103,7 +105,7 @@ const Venues = () => {
         <div>
           <h1 className="text-2xl md:text-3xl font-display font-bold mb-1">{pageTitle}</h1>
           <p className="text-sm text-muted-foreground font-body">
-            Showing <span className="text-foreground font-semibold">{visible.length}</span> of <span className="text-foreground font-semibold">{filtered.length}</span> venues
+            Showing <span className="text-foreground font-semibold">{visible.length}</span> of <span className="text-foreground font-semibold">{displayVenues.length}</span> venues
           </p>
         </div>
         <div className="flex items-center gap-1 bg-card border border-border/50 rounded-xl p-1">
@@ -136,7 +138,7 @@ const Venues = () => {
           </div>
         )}
 
-        {filtered.length === 0 && (
+        {displayVenues.length === 0 && (
           <div className="text-center py-20">
             <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-secondary flex items-center justify-center">
               <Search className="w-7 h-7 text-muted-foreground" />
@@ -161,7 +163,7 @@ const VenueListCard = ({ venue }: { venue: Venue }) => {
     <Link to={`/venue/${venue.id}`} className="block">
       <div className="bg-card rounded-xl border border-border/40 overflow-hidden flex flex-col lg:flex-row hover:border-foreground/10 transition-all duration-300 hover:shadow-lg hover:shadow-black/5">
         {/* Images: 60% width — left big 40%, right 2 stacked 20% */}
-        <div className="lg:w-[60%] shrink-0 flex" style={{ minHeight: 260 }}>
+        <div className="lg:w-[60%] shrink-0 flex" style={{ height: 220 }}>
           {/* Big image — roughly 2/3 of image area */}
           <div className="relative w-[66%] overflow-hidden">
             <img src={venue.images[imgIndex]} alt={venue.name} className="w-full h-full object-cover" />
