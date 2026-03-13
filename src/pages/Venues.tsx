@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Search, MapPin, Users, CalendarDays, LayoutGrid, List, ChevronLeft, ChevronRight, Heart, Bed, Bath, Maximize, Eye, Waves, Trees, Fish, Flame, PawPrint, Dumbbell, Sun } from "lucide-react";
+import { Search, MapPin, Users, CalendarDays, LayoutGrid, List, ChevronLeft, ChevronRight, Heart, Bed, Bath, Maximize, Eye, Waves, Trees, Fish, Flame, PawPrint, Dumbbell, Sun, Image as ImageIcon, Moon } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -12,23 +12,23 @@ import venueGarden from "@/assets/venue-garden.jpg";
 import venueDestination from "@/assets/venue-destination.jpg";
 import venueCastle from "@/assets/venue-castle.jpg";
 
-type Amenity = {
-  label: string;
+type AmenityStyle = {
   icon: React.ReactNode;
+  color: string;
 };
 
-const amenityOptions: Record<string, { icon: React.ReactNode }> = {
-  "Amazing Views": { icon: <Eye className="w-3.5 h-3.5" /> },
-  "Beach": { icon: <Sun className="w-3.5 h-3.5" /> },
-  "Waterfront": { icon: <Waves className="w-3.5 h-3.5" /> },
-  "Outdoor Pool": { icon: <Waves className="w-3.5 h-3.5" /> },
-  "Fishing": { icon: <Fish className="w-3.5 h-3.5" /> },
-  "Pet Friendly": { icon: <PawPrint className="w-3.5 h-3.5" /> },
-  "Fireplace": { icon: <Flame className="w-3.5 h-3.5" /> },
-  "Hot Tub": { icon: <Flame className="w-3.5 h-3.5" /> },
-  "Bunk Room": { icon: <Bed className="w-3.5 h-3.5" /> },
-  "Garden": { icon: <Trees className="w-3.5 h-3.5" /> },
-  "Gym": { icon: <Dumbbell className="w-3.5 h-3.5" /> },
+const amenityOptions: Record<string, AmenityStyle> = {
+  "Amazing Views": { icon: <Eye className="w-3.5 h-3.5" />, color: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" },
+  "Beach": { icon: <Sun className="w-3.5 h-3.5" />, color: "bg-amber-500/20 text-amber-400 border-amber-500/30" },
+  "Waterfront": { icon: <Waves className="w-3.5 h-3.5" />, color: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30" },
+  "Outdoor Pool": { icon: <Waves className="w-3.5 h-3.5" />, color: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
+  "Fishing": { icon: <Fish className="w-3.5 h-3.5" />, color: "bg-teal-500/20 text-teal-400 border-teal-500/30" },
+  "Pet Friendly": { icon: <PawPrint className="w-3.5 h-3.5" />, color: "bg-pink-500/20 text-pink-400 border-pink-500/30" },
+  "Fireplace": { icon: <Flame className="w-3.5 h-3.5" />, color: "bg-orange-500/20 text-orange-400 border-orange-500/30" },
+  "Hot Tub": { icon: <Flame className="w-3.5 h-3.5" />, color: "bg-red-500/20 text-red-400 border-red-500/30" },
+  "Bunk Room": { icon: <Bed className="w-3.5 h-3.5" />, color: "bg-purple-500/20 text-purple-400 border-purple-500/30" },
+  "Garden": { icon: <Trees className="w-3.5 h-3.5" />, color: "bg-lime-500/20 text-lime-400 border-lime-500/30" },
+  "Gym": { icon: <Dumbbell className="w-3.5 h-3.5" />, color: "bg-violet-500/20 text-violet-400 border-violet-500/30" },
 };
 
 interface Venue {
@@ -179,12 +179,12 @@ const Venues = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      {/* Search Bar */}
-      <div className="pt-24 pb-6 px-4 bg-card border-b border-border">
+      {/* Search Bar - Sticky */}
+      <div className="sticky top-0 z-40 pt-20 pb-4 px-4 bg-background/95 backdrop-blur-md border-b border-border/50">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row items-stretch md:items-center gap-3">
-            <div className="flex items-center gap-3 bg-secondary rounded-xl px-4 py-3 flex-1">
-              <MapPin className="w-5 h-5 text-primary shrink-0" />
+          <div className="flex flex-col md:flex-row items-stretch md:items-center gap-2 bg-card/80 border border-border/50 rounded-2xl p-2">
+            <div className="flex items-center gap-3 bg-secondary/50 rounded-xl px-4 py-3 flex-1">
+              <MapPin className="w-4 h-4 text-primary shrink-0" />
               <input
                 type="text"
                 placeholder="Search by location or venue name..."
@@ -193,8 +193,8 @@ const Venues = () => {
                 className="bg-transparent text-foreground placeholder:text-muted-foreground text-sm w-full outline-none font-body"
               />
             </div>
-            <div className="flex items-center gap-3 bg-secondary rounded-xl px-4 py-3 w-full md:w-48">
-              <Users className="w-5 h-5 text-primary shrink-0" />
+            <div className="flex items-center gap-3 bg-secondary/50 rounded-xl px-4 py-3 w-full md:w-44">
+              <Users className="w-4 h-4 text-primary shrink-0" />
               <input
                 type="number"
                 placeholder="Min guests"
@@ -203,8 +203,8 @@ const Venues = () => {
                 className="bg-transparent text-foreground placeholder:text-muted-foreground text-sm w-full outline-none font-body"
               />
             </div>
-            <div className="flex items-center gap-3 bg-secondary rounded-xl px-4 py-3 w-full md:w-48">
-              <CalendarDays className="w-5 h-5 text-primary shrink-0" />
+            <div className="flex items-center gap-3 bg-secondary/50 rounded-xl px-4 py-3 w-full md:w-44">
+              <CalendarDays className="w-4 h-4 text-primary shrink-0" />
               <input type="text" placeholder="Any dates" className="bg-transparent text-foreground placeholder:text-muted-foreground text-sm w-full outline-none font-body" />
             </div>
             <button className="bg-gold-gradient text-primary-foreground font-semibold px-6 py-3 rounded-xl flex items-center justify-center gap-2 hover:opacity-90 transition-opacity font-body shrink-0">
@@ -216,22 +216,24 @@ const Venues = () => {
       </div>
 
       {/* Results Header */}
-      <div className="max-w-7xl mx-auto px-4 py-6 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 py-5 flex items-center justify-between">
         <p className="text-sm text-muted-foreground font-body">
-          <span className="text-foreground font-semibold">{filtered.length}</span> venues found
+          Showing <span className="text-foreground font-semibold">{visible.length}</span> of <span className="text-foreground font-semibold">{filtered.length}</span> venues
         </p>
-        <div className="flex items-center gap-1 bg-secondary rounded-lg p-1">
+        <div className="flex items-center gap-1 bg-card border border-border/50 rounded-xl p-1">
           <button
             onClick={() => setView("list")}
-            className={`p-2 rounded-md transition-colors ${view === "list" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${view === "list" ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
           >
-            <List className="w-4 h-4" />
+            <List className="w-3.5 h-3.5" />
+            List
           </button>
           <button
             onClick={() => setView("grid")}
-            className={`p-2 rounded-md transition-colors ${view === "grid" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${view === "grid" ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
           >
-            <LayoutGrid className="w-4 h-4" />
+            <LayoutGrid className="w-3.5 h-3.5" />
+            Grid
           </button>
         </div>
       </div>
@@ -239,13 +241,13 @@ const Venues = () => {
       {/* Results */}
       <div className="max-w-7xl mx-auto px-4 pb-16">
         {view === "list" ? (
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-5">
             {visible.map((venue) => (
               <VenueListCard key={venue.id} venue={venue} />
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {visible.map((venue) => (
               <VenueGridCard key={venue.id} venue={venue} />
             ))}
@@ -256,7 +258,7 @@ const Venues = () => {
           <div className="text-center mt-10">
             <button
               onClick={() => setVisibleCount((c) => c + ITEMS_PER_PAGE)}
-              className="border border-primary/30 text-primary px-10 py-3 rounded-xl hover:bg-primary/10 transition-colors font-body font-medium"
+              className="border border-primary/30 text-primary px-10 py-3 rounded-xl hover:bg-primary/10 transition-all font-body font-medium hover:border-primary/60 hover:shadow-lg hover:shadow-primary/5"
             >
               Load More Venues
             </button>
@@ -265,7 +267,11 @@ const Venues = () => {
 
         {filtered.length === 0 && (
           <div className="text-center py-20">
-            <p className="text-muted-foreground text-lg font-body">No venues match your search.</p>
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-secondary flex items-center justify-center">
+              <Search className="w-7 h-7 text-muted-foreground" />
+            </div>
+            <p className="text-muted-foreground text-lg font-body mb-2">No venues match your search.</p>
+            <p className="text-muted-foreground/60 text-sm font-body">Try adjusting your filters or search terms.</p>
           </div>
         )}
       </div>
@@ -278,38 +284,47 @@ const Venues = () => {
 /* ============ LIST CARD ============ */
 const VenueListCard = ({ venue }: { venue: Venue }) => {
   const [imgIndex, setImgIndex] = useState(0);
+  const [liked, setLiked] = useState(false);
 
   return (
-    <div className="bg-card rounded-2xl border border-border/50 overflow-hidden flex flex-col lg:flex-row hover:border-primary/20 transition-all">
+    <div className="bg-card rounded-2xl border border-border/40 overflow-hidden flex flex-col lg:flex-row hover:border-primary/20 transition-all duration-300 hover:shadow-xl hover:shadow-primary/5">
       {/* Images Section */}
-      <div className="lg:w-[420px] shrink-0 flex flex-col sm:flex-row lg:flex-col">
+      <div className="lg:w-[440px] shrink-0 flex flex-col sm:flex-row lg:flex-col">
         {/* Main Image */}
         <div className="relative aspect-[16/10] sm:w-1/2 lg:w-full lg:aspect-[16/10] overflow-hidden">
-          <img src={venue.images[imgIndex]} alt={venue.name} className="w-full h-full object-cover" />
+          <img src={venue.images[imgIndex]} alt={venue.name} className="w-full h-full object-cover transition-transform duration-500" />
           <button
             onClick={() => setImgIndex((i) => (i - 1 + venue.images.length) % venue.images.length)}
-            className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-background/80 flex items-center justify-center hover:bg-background transition-colors"
+            className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center hover:bg-black/70 transition-colors"
           >
-            <ChevronLeft className="w-4 h-4 text-foreground" />
+            <ChevronLeft className="w-4 h-4 text-white" />
           </button>
           <button
             onClick={() => setImgIndex((i) => (i + 1) % venue.images.length)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-background/80 flex items-center justify-center hover:bg-background transition-colors"
+            className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center hover:bg-black/70 transition-colors"
           >
-            <ChevronRight className="w-4 h-4 text-foreground" />
+            <ChevronRight className="w-4 h-4 text-white" />
           </button>
-          <button className="absolute top-3 right-3 w-8 h-8 rounded-full bg-background/80 flex items-center justify-center hover:bg-background transition-colors">
-            <Heart className="w-4 h-4 text-foreground" />
+          <button
+            onClick={() => setLiked(!liked)}
+            className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center hover:bg-black/70 transition-colors"
+          >
+            <Heart className={`w-4 h-4 ${liked ? "fill-red-500 text-red-500" : "text-white"}`} />
           </button>
+          {/* Image count badge */}
+          <div className="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm text-white px-2.5 py-1 rounded-lg text-xs font-medium flex items-center gap-1.5">
+            <ImageIcon className="w-3 h-3" />
+            {venue.images.length}+
+          </div>
         </div>
         {/* Thumbnails */}
         <div className="hidden sm:grid grid-cols-2 gap-1 p-1 lg:p-0 sm:w-1/2 lg:w-full">
           {venue.images.slice(1, 3).map((img, i) => (
-            <div key={i} className="relative aspect-[4/3] overflow-hidden cursor-pointer" onClick={() => setImgIndex(i + 1)}>
-              <img src={img} alt="" className="w-full h-full object-cover hover:opacity-80 transition-opacity" />
+            <div key={i} className="relative aspect-[4/3] overflow-hidden cursor-pointer group/thumb" onClick={() => setImgIndex(i + 1)}>
+              <img src={img} alt="" className="w-full h-full object-cover group-hover/thumb:scale-105 transition-transform duration-300" />
               {i === 1 && venue.images.length > 3 && (
-                <div className="absolute inset-0 bg-background/60 flex items-center justify-center">
-                  <span className="text-sm text-foreground font-body font-medium">+{venue.images.length - 3} more</span>
+                <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                  <span className="text-sm text-white font-body font-medium">+{venue.images.length - 3} more</span>
                 </div>
               )}
             </div>
@@ -319,13 +334,8 @@ const VenueListCard = ({ venue }: { venue: Venue }) => {
 
       {/* Content */}
       <div className="flex-1 p-6 flex flex-col">
-        <div className="flex items-start justify-between gap-4 mb-2">
-          <h3 className="font-display font-semibold text-xl leading-tight">{venue.name}</h3>
-          {venue.price && (
-            <span className="bg-primary/10 text-primary px-3 py-1 rounded-lg text-sm font-semibold font-body shrink-0">
-              {venue.price}
-            </span>
-          )}
+        <div className="flex items-start justify-between gap-4 mb-1">
+          <h3 className="font-display font-semibold text-lg leading-tight text-foreground">{venue.name}</h3>
         </div>
         <p className="text-sm text-primary/80 font-body flex items-center gap-1 mb-3">
           <MapPin className="w-3.5 h-3.5" /> {venue.location}
@@ -334,19 +344,26 @@ const VenueListCard = ({ venue }: { venue: Venue }) => {
           {venue.description}
         </p>
 
-        {/* Stats */}
+        {/* Stats Row */}
         <div className="flex flex-wrap gap-2 mb-4">
-          <StatBadge icon={<Users className="w-3.5 h-3.5" />} label={`Attendees: ${venue.attendees}`} />
-          <StatBadge icon={<Users className="w-3.5 h-3.5" />} label={`Sleeps: ${venue.sleeps}`} />
-          <StatBadge icon={<Bed className="w-3.5 h-3.5" />} label={`Beds: ${venue.beds}`} />
-          <StatBadge icon={<Bath className="w-3.5 h-3.5" />} label={`Baths: ${venue.baths}`} />
-          <StatBadge icon={<Maximize className="w-3.5 h-3.5" />} label={`Ft² ${venue.sqft.toLocaleString()}`} />
+          <StatBadge icon={<Users className="w-3.5 h-3.5" />} label={`Attendees ${venue.attendees}`} />
+          <StatBadge icon={<Moon className="w-3.5 h-3.5" />} label={`Sleeps ${venue.sleeps}`} />
+          <StatBadge icon={<Bed className="w-3.5 h-3.5" />} label={`Beds : ${venue.beds}`} />
+          <StatBadge icon={<Bath className="w-3.5 h-3.5" />} label={`Baths : ${venue.baths}`} />
+          {venue.price && (
+            <StatBadge icon={<Maximize className="w-3.5 h-3.5" />} label={`Ft² ${venue.sqft.toLocaleString()}`} />
+          )}
+          {venue.price && (
+            <span className="inline-flex items-center gap-1.5 text-xs bg-primary/15 text-primary px-3 py-1.5 rounded-lg font-body font-semibold border border-primary/20">
+              {venue.price}
+            </span>
+          )}
         </div>
 
         {/* Amenities */}
         <div className="flex flex-wrap gap-2 mt-auto">
           {venue.amenities.map((a) => (
-            <span key={a} className="inline-flex items-center gap-1.5 text-xs bg-secondary text-secondary-foreground px-3 py-1.5 rounded-full font-body">
+            <span key={a} className={`inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full font-body font-medium border ${amenityOptions[a]?.color || "bg-secondary text-secondary-foreground border-border/50"}`}>
               {amenityOptions[a]?.icon}
               {a}
             </span>
@@ -360,36 +377,45 @@ const VenueListCard = ({ venue }: { venue: Venue }) => {
 /* ============ GRID CARD ============ */
 const VenueGridCard = ({ venue }: { venue: Venue }) => {
   const [imgIndex, setImgIndex] = useState(0);
+  const [liked, setLiked] = useState(false);
 
   return (
-    <div className="bg-card rounded-2xl border border-border/50 overflow-hidden hover:border-primary/20 transition-all group">
+    <div className="bg-card rounded-2xl border border-border/40 overflow-hidden hover:border-primary/20 transition-all duration-300 group hover:shadow-xl hover:shadow-primary/5">
       {/* Image */}
       <div className="relative aspect-[4/3] overflow-hidden">
-        <img src={venue.images[imgIndex]} alt={venue.name} className="w-full h-full object-cover" />
+        <img src={venue.images[imgIndex]} alt={venue.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
         <button
           onClick={() => setImgIndex((i) => (i - 1 + venue.images.length) % venue.images.length)}
-          className="absolute left-3 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-background/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+          className="absolute left-3 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
         >
-          <ChevronLeft className="w-3.5 h-3.5 text-foreground" />
+          <ChevronLeft className="w-3.5 h-3.5 text-white" />
         </button>
         <button
           onClick={() => setImgIndex((i) => (i + 1) % venue.images.length)}
-          className="absolute right-3 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-background/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+          className="absolute right-3 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
         >
-          <ChevronRight className="w-3.5 h-3.5 text-foreground" />
+          <ChevronRight className="w-3.5 h-3.5 text-white" />
         </button>
-        <button className="absolute top-3 right-3 w-7 h-7 rounded-full bg-background/80 flex items-center justify-center">
-          <Heart className="w-3.5 h-3.5 text-foreground" />
+        <button
+          onClick={() => setLiked(!liked)}
+          className="absolute top-3 right-3 w-7 h-7 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center"
+        >
+          <Heart className={`w-3.5 h-3.5 ${liked ? "fill-red-500 text-red-500" : "text-white"}`} />
         </button>
         {venue.price && (
-          <div className="absolute bottom-3 left-3 bg-primary/90 text-primary-foreground px-3 py-1 rounded-lg text-xs font-semibold font-body">
+          <div className="absolute top-3 left-3 bg-primary/90 text-primary-foreground px-2.5 py-1 rounded-lg text-xs font-semibold font-body">
             {venue.price}
           </div>
         )}
+        {/* Image count */}
+        <div className="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm text-white px-2 py-1 rounded-lg text-[11px] font-medium flex items-center gap-1">
+          <ImageIcon className="w-3 h-3" />
+          {venue.images.length}+
+        </div>
         {/* Dots */}
-        <div className="absolute bottom-3 right-3 flex gap-1">
+        <div className="absolute bottom-3 left-3 flex gap-1">
           {venue.images.map((_, i) => (
-            <span key={i} className={`w-1.5 h-1.5 rounded-full ${i === imgIndex ? "bg-primary" : "bg-foreground/40"}`} />
+            <span key={i} className={`w-1.5 h-1.5 rounded-full transition-colors ${i === imgIndex ? "bg-white" : "bg-white/40"}`} />
           ))}
         </div>
       </div>
@@ -397,29 +423,39 @@ const VenueGridCard = ({ venue }: { venue: Venue }) => {
       {/* Content */}
       <div className="p-5">
         <h3 className="font-display font-semibold text-base leading-snug mb-1 line-clamp-2">{venue.name}</h3>
-        <p className="text-xs text-primary/80 font-body flex items-center gap-1 mb-3">
+        <p className="text-xs text-primary/80 font-body flex items-center gap-1 mb-2">
           <MapPin className="w-3 h-3" /> {venue.location}
         </p>
 
+        <p className="text-xs text-muted-foreground font-body leading-relaxed mb-3 line-clamp-2">
+          {venue.description}
+        </p>
+
+        {/* Stats */}
         <div className="flex flex-wrap gap-1.5 mb-3">
-          <span className="text-xs text-muted-foreground font-body">{venue.attendees} guests</span>
-          <span className="text-xs text-muted-foreground">•</span>
-          <span className="text-xs text-muted-foreground font-body">Sleeps {venue.sleeps}</span>
-          <span className="text-xs text-muted-foreground">•</span>
-          <span className="text-xs text-muted-foreground font-body">{venue.beds} beds</span>
-          <span className="text-xs text-muted-foreground">•</span>
-          <span className="text-xs text-muted-foreground font-body">{venue.baths} baths</span>
+          <span className="text-[11px] bg-muted/50 text-muted-foreground font-body px-2 py-1 rounded-md border border-border/30 flex items-center gap-1">
+            <Users className="w-3 h-3" /> {venue.attendees}
+          </span>
+          <span className="text-[11px] bg-muted/50 text-muted-foreground font-body px-2 py-1 rounded-md border border-border/30 flex items-center gap-1">
+            <Moon className="w-3 h-3" /> {venue.sleeps}
+          </span>
+          <span className="text-[11px] bg-muted/50 text-muted-foreground font-body px-2 py-1 rounded-md border border-border/30 flex items-center gap-1">
+            <Bed className="w-3 h-3" /> {venue.beds}
+          </span>
+          <span className="text-[11px] bg-muted/50 text-muted-foreground font-body px-2 py-1 rounded-md border border-border/30 flex items-center gap-1">
+            <Bath className="w-3 h-3" /> {venue.baths}
+          </span>
         </div>
 
         <div className="flex flex-wrap gap-1.5">
-          {venue.amenities.slice(0, 4).map((a) => (
-            <span key={a} className="inline-flex items-center gap-1 text-[11px] bg-secondary text-secondary-foreground px-2 py-1 rounded-full font-body">
+          {venue.amenities.slice(0, 3).map((a) => (
+            <span key={a} className={`inline-flex items-center gap-1 text-[11px] px-2 py-1 rounded-full font-body font-medium border ${amenityOptions[a]?.color || "bg-secondary text-secondary-foreground border-border/50"}`}>
               {amenityOptions[a]?.icon}
               {a}
             </span>
           ))}
-          {venue.amenities.length > 4 && (
-            <span className="text-[11px] text-muted-foreground font-body px-2 py-1">+{venue.amenities.length - 4}</span>
+          {venue.amenities.length > 3 && (
+            <span className="text-[11px] text-muted-foreground font-body px-2 py-1">+{venue.amenities.length - 3}</span>
           )}
         </div>
       </div>
@@ -428,7 +464,7 @@ const VenueGridCard = ({ venue }: { venue: Venue }) => {
 };
 
 const StatBadge = ({ icon, label }: { icon: React.ReactNode; label: string }) => (
-  <span className="inline-flex items-center gap-1.5 text-xs bg-muted text-muted-foreground px-3 py-1.5 rounded-lg font-body border border-border/50">
+  <span className="inline-flex items-center gap-1.5 text-xs bg-muted/50 text-muted-foreground px-3 py-1.5 rounded-lg font-body border border-border/30">
     {icon} {label}
   </span>
 );

@@ -5,7 +5,9 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
+  /* Dark theme (default) */
+  :root,
+  .dark {
     --background: 30 10% 8%;
     --foreground: 40 20% 90%;
 
@@ -51,6 +53,54 @@
     --sidebar-border: 30 10% 20%;
     --sidebar-ring: 40 60% 55%;
   }
+
+  /* Light theme */
+  .light {
+    --background: 40 30% 97%;
+    --foreground: 30 15% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 30 15% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 30 15% 15%;
+
+    --primary: 40 60% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 40 15% 92%;
+    --secondary-foreground: 30 15% 30%;
+
+    --muted: 40 10% 90%;
+    --muted-foreground: 30 10% 45%;
+
+    --accent: 40 50% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 40 15% 88%;
+    --input: 40 15% 88%;
+    --ring: 40 60% 45%;
+
+    --radius: 0.75rem;
+
+    --gold: 40 60% 45%;
+    --gold-light: 40 70% 60%;
+    --gold-dark: 40 50% 35%;
+    --dark-surface: 40 15% 95%;
+    --dark-overlay: 40 20% 93%;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 30 15% 15%;
+    --sidebar-primary: 40 60% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 40 15% 92%;
+    --sidebar-accent-foreground: 30 15% 30%;
+    --sidebar-border: 40 15% 88%;
+    --sidebar-ring: 40 60% 45%;
+  }
 }
 
 @layer base {
@@ -80,18 +130,18 @@
   }
 
   .bg-dark-gradient {
-    background: linear-gradient(180deg, hsl(30 15% 6%) 0%, hsl(30 10% 10%) 100%);
+    background: linear-gradient(180deg, hsl(var(--dark-overlay)) 0%, hsl(var(--dark-surface)) 100%);
   }
 
   .glass-card {
-    background: hsl(30 10% 12% / 0.6);
+    background: hsl(var(--card) / 0.6);
     backdrop-filter: blur(20px);
-    border: 1px solid hsl(40 60% 55% / 0.15);
+    border: 1px solid hsl(var(--primary) / 0.15);
   }
 
   .glass-search {
-    background: hsl(30 10% 12% / 0.85);
+    background: hsl(var(--card) / 0.85);
     backdrop-filter: blur(30px);
-    border: 1px solid hsl(40 60% 55% / 0.2);
+    border: 1px solid hsl(var(--primary) / 0.2);
   }
 }
