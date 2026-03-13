@@ -1,110 +1,160 @@
 import { Search, MapPin, Users, CalendarDays } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
   const [location, setLocation] = useState("");
   const [guests, setGuests] = useState("");
+  const [sticky, setSticky] = useState(false);
+  const formRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  const handleSearch = () => {
+  useEffect(() => {
+    const stickyOffset = (formRef.current?.offsetTop ?? 0) + 520;
+    function onScroll() { setSticky(window.scrollY >= stickyOffset); }
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
     const params = new URLSearchParams();
     if (location) params.set("location", location);
     if (guests) params.set("guests", guests);
     navigate(`/venues?${params.toString()}`);
   };
 
+  const stickyClass = sticky
+    ? "fixed top-0 left-0 right-0 z-50 shadow-[0_4px_20px_rgba(0,0,0,0.3)] px-4 py-2.5 bg-card rounded-b-xl"
+    : "p-0";
+
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
-      {/* Video Background */}
-      <div className="absolute inset-0">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full h-full object-cover"
-        >
-          <source src="https://devbilal.com/wp-content/uploads/wedding.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-background/90" />
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-up">
-        <p className="text-sm tracking-[0.3em] uppercase text-primary/80 mb-4 font-body">
-          Short Term Rental Wedding Venues
-        </p>
-        <h1 className="text-5xl md:text-7xl font-display font-bold leading-tight mb-6">
-          <span className="text-white">Find Your Dream</span>
-          <br />
-          <span className="text-gold-gradient">Wedding Venue</span>
-        </h1>
-        <p className="text-white/70 text-lg max-w-xl mx-auto mb-12 font-body font-light">
-          Discover stunning short term rental venues for unforgettable celebrations. Make your wedding last a week, not just a day.
-        </p>
-
-        {/* Search bar */}
-        <div className="glass-search rounded-2xl p-2 flex flex-col md:flex-row items-stretch md:items-center gap-2 max-w-3xl mx-auto">
-          <div className="flex items-center gap-3 px-4 py-2 flex-1 min-w-0">
-            <MapPin className="w-5 h-5 text-primary shrink-0" />
-            <div className="text-left flex-1">
-              <p className="text-xs font-semibold text-white font-body">Location</p>
-              <input
-                type="text"
-                placeholder="Where to?"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                className="text-sm text-white/60 font-body bg-transparent outline-none w-full placeholder:text-white/40"
-              />
-            </div>
-          </div>
-          <div className="hidden md:block w-px h-10 bg-white/20" />
-          <div className="flex items-center gap-3 px-4 py-2 flex-1 min-w-0">
-            <Users className="w-5 h-5 text-primary shrink-0" />
-            <div className="text-left flex-1">
-              <p className="text-xs font-semibold text-white font-body">Guests</p>
-              <input
-                type="number"
-                placeholder="How many?"
-                value={guests}
-                onChange={(e) => setGuests(e.target.value)}
-                className="text-sm text-white/60 font-body bg-transparent outline-none w-full placeholder:text-white/40"
-              />
-            </div>
-          </div>
-          <div className="hidden md:block w-px h-10 bg-white/20" />
-          <div className="flex items-center gap-3 px-4 py-2 flex-1 min-w-0">
-            <CalendarDays className="w-5 h-5 text-primary shrink-0" />
-            <div className="text-left">
-              <p className="text-xs font-semibold text-white font-body">Dates</p>
-              <p className="text-sm text-white/40 font-body">When?</p>
-            </div>
-          </div>
-          <button
-            onClick={handleSearch}
-            className="bg-gold-gradient text-primary-foreground font-semibold px-8 py-4 rounded-xl flex items-center justify-center gap-2 hover:opacity-90 transition-opacity font-body"
-          >
-            <Search className="w-5 h-5" />
-            Search
-          </button>
+    <>
+      <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+        {/* Video Background */}
+        <div className="absolute inset-0">
+          <video autoPlay muted loop playsInline className="w-full h-full object-cover">
+            <source src="https://devbilal.com/wp-content/uploads/wedding.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60" />
         </div>
-      </div>
 
-      {/* Stats */}
-      <div className="relative z-10 mt-16 flex flex-wrap items-center justify-center gap-8 md:gap-16 animate-fade-up" style={{ animationDelay: "0.3s" }}>
-        <Stat value="5,000+" label="Venues" />
-        <Stat value="50+" label="Destinations" />
-        <Stat value="10,000+" label="Happy Couples" />
-        <Stat value="4.9★" label="Average Rating" />
-      </div>
-    </section>
+        {/* Content */}
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-6xl font-display font-bold leading-tight mb-8 text-white drop-shadow-lg">
+            Find Your Dream
+            <br />
+            Wedding Venue
+          </h1>
+
+          {/* Search Bar */}
+          <div ref={formRef} className="w-full max-w-4xl mx-auto">
+            <form
+              onSubmit={handleSearch}
+              className={`max-w-6xl mx-auto transition-all ${stickyClass}`}
+              style={!sticky ? { background: "rgba(0,0,0,0.2)", borderRadius: 10, padding: "20px 16px 28px" } : {}}
+            >
+              {/* Subtitle - hidden when sticky */}
+              {!sticky && (
+                <>
+                  <h2 className="hidden md:block text-white text-center mb-3 leading-snug drop-shadow text-[25px]" style={{ fontWeight: 600 }}>
+                    Search Short Term Rental Wedding Venues<br />
+                    Changing The Game On How You Choose Your Wedding Venue!
+                  </h2>
+                  <h2 className="md:hidden text-white text-center mb-2 text-[18px] leading-snug drop-shadow" style={{ fontWeight: 600 }}>
+                    Search Short Term Rental Wedding Venues<br />
+                    Changing The Game On How You Choose Your Wedding Venue!
+                  </h2>
+                </>
+              )}
+
+              {/* Desktop: single row */}
+              <div className="hidden md:grid md:grid-cols-4 gap-1.5" style={{ height: 46 }}>
+                <div className="flex items-center gap-2 px-3 rounded-lg" style={{ background: "rgba(255,255,255,0.08)" }}>
+                  <MapPin className="w-4 h-4 text-white/60 shrink-0" />
+                  <input
+                    type="text"
+                    placeholder="Location"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    className="bg-transparent text-white placeholder:text-white/50 text-sm w-full outline-none font-body"
+                  />
+                </div>
+                <div className="flex items-center gap-2 px-3 rounded-lg" style={{ background: "rgba(255,255,255,0.08)" }}>
+                  <Users className="w-4 h-4 text-white/60 shrink-0" />
+                  <input
+                    type="number"
+                    placeholder="Attendees"
+                    value={guests}
+                    onChange={(e) => setGuests(e.target.value)}
+                    className="bg-transparent text-white placeholder:text-white/50 text-sm w-full outline-none font-body"
+                  />
+                </div>
+                <div className="flex items-center gap-2 px-3 rounded-lg" style={{ background: "rgba(255,255,255,0.08)" }}>
+                  <CalendarDays className="w-4 h-4 text-white/60 shrink-0" />
+                  <span className="text-sm text-white/50 font-body">Amenities</span>
+                </div>
+                <button
+                  type="submit"
+                  className="h-full flex items-center justify-center gap-2 px-6 whitespace-nowrap rounded-lg font-semibold text-sm bg-black text-white border border-white hover:bg-zinc-900 cursor-pointer transition-colors"
+                >
+                  <Search className="w-4 h-4" />
+                  Search Now
+                </button>
+              </div>
+
+              {/* Mobile: 2x2 grid */}
+              <div className="md:hidden grid grid-cols-2 gap-1.5" style={{ height: 42 }}>
+                <div className="flex items-center gap-2 px-3 rounded-lg" style={{ background: "rgba(255,255,255,0.08)" }}>
+                  <MapPin className="w-3 h-3 text-white/60 shrink-0" />
+                  <input
+                    type="text"
+                    placeholder="Location"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    className="bg-transparent text-white placeholder:text-white/50 text-xs w-full outline-none font-body"
+                  />
+                </div>
+                <div className="flex items-center gap-2 px-3 rounded-lg" style={{ background: "rgba(255,255,255,0.08)" }}>
+                  <Users className="w-3 h-3 text-white/60 shrink-0" />
+                  <input
+                    type="number"
+                    placeholder="Attendees"
+                    value={guests}
+                    onChange={(e) => setGuests(e.target.value)}
+                    className="bg-transparent text-white placeholder:text-white/50 text-xs w-full outline-none font-body"
+                  />
+                </div>
+              </div>
+              <button
+                type="submit"
+                className="mt-1 w-full flex md:hidden items-center justify-center gap-2 py-2 text-xs bg-black text-white border border-white hover:bg-zinc-900 rounded-lg font-semibold"
+              >
+                <Search className="w-3.5 h-3.5" />
+                Search Now
+              </button>
+            </form>
+          </div>
+        </div>
+
+        {/* Stats */}
+        <div className="relative z-10 mt-16 flex flex-wrap items-center justify-center gap-8 md:gap-16">
+          <Stat value="5,000+" label="Venues" />
+          <Stat value="50+" label="Destinations" />
+          <Stat value="10,000+" label="Happy Couples" />
+          <Stat value="4.9★" label="Average Rating" />
+        </div>
+      </section>
+
+      {/* Sticky search bar portal when scrolled past hero */}
+      {sticky && <div style={{ height: 80 }} />}
+    </>
   );
 };
 
 const Stat = ({ value, label }: { value: string; label: string }) => (
   <div className="text-center">
-    <p className="text-2xl md:text-3xl font-display font-bold text-primary">{value}</p>
+    <p className="text-2xl md:text-3xl font-display font-bold text-white drop-shadow">{value}</p>
     <p className="text-sm text-white/60 font-body">{label}</p>
   </div>
 );
