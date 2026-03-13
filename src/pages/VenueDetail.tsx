@@ -298,12 +298,16 @@ const VenueDetail = () => {
 
             {/* Location */}
             <DetailSection title="Location">
-              <div className="bg-secondary/30 rounded-xl h-64 flex items-center justify-center border border-border/30">
-                <div className="text-center">
-                  <MapPin className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
-                  <p className="text-sm text-muted-foreground font-body">{venue.location}</p>
-                  <p className="text-xs text-muted-foreground/60 font-body mt-1">Map coming soon</p>
-                </div>
+              <div className="rounded-xl overflow-hidden h-72 border border-border/30">
+                <iframe
+                  title="Venue Location"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  src={`https://maps.google.com/maps?q=${encodeURIComponent(venue.location)}&t=&z=13&ie=UTF8&iwloc=&output=embed`}
+                />
               </div>
             </DetailSection>
           </div>
