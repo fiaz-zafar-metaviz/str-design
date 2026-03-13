@@ -163,7 +163,7 @@ const VenueListCard = ({ venue }: { venue: Venue }) => {
     <Link to={`/venue/${venue.id}`} className="block">
       <div className="bg-card rounded-xl border border-border/40 overflow-hidden flex flex-col lg:flex-row hover:border-foreground/10 transition-all duration-300 hover:shadow-lg hover:shadow-black/5">
         {/* Images: 60% width — left big 40%, right 2 stacked 20% */}
-        <div className="lg:w-[60%] shrink-0 flex" style={{ height: 220 }}>
+        <div className="lg:w-[60%] shrink-0 flex" style={{ height: 250 }}>
           {/* Big image — roughly 2/3 of image area */}
           <div className="relative w-[66%] overflow-hidden">
             <img src={venue.images[imgIndex]} alt={venue.name} className="w-full h-full object-cover" />
