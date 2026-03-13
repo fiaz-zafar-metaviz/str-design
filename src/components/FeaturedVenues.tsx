@@ -1,4 +1,5 @@
 import { Star, Users } from "lucide-react";
+import { Link } from "react-router-dom";
 import venueBeach from "@/assets/venue-beach.jpg";
 import venueVilla from "@/assets/venue-villa.jpg";
 import venueMountain from "@/assets/venue-mountain.jpg";
