@@ -25,8 +25,19 @@ const HeroSection = () => {
   };
 
   const stickyClass = sticky
-    ? "fixed top-0 left-0 right-0 z-50 shadow-[0_4px_20px_rgba(0,0,0,0.3)] px-4 py-2.5 bg-card rounded-b-xl"
+    ? "fixed top-0 left-0 right-0 z-50 shadow-[0_4px_20px_rgba(0,0,0,0.3)] px-4 py-2.5 bg-card rounded-b-xl border-b border-border"
     : "p-0";
+
+  const fieldBg = sticky ? "bg-secondary" : "";
+  const fieldStyle = sticky ? {} : { background: "rgba(255,255,255,0.15)" };
+  const inputClass = sticky
+    ? "bg-transparent text-foreground placeholder:text-muted-foreground text-sm w-full outline-none font-body"
+    : "bg-transparent text-white placeholder:text-white/50 text-sm w-full outline-none font-body";
+  const iconClass = sticky ? "w-4 h-4 text-muted-foreground shrink-0" : "w-4 h-4 text-white/60 shrink-0";
+  const iconClassSm = sticky ? "w-3 h-3 text-muted-foreground shrink-0" : "w-3 h-3 text-white/60 shrink-0";
+  const inputClassSm = sticky
+    ? "bg-transparent text-foreground placeholder:text-muted-foreground text-xs w-full outline-none font-body"
+    : "bg-transparent text-white placeholder:text-white/50 text-xs w-full outline-none font-body";
 
   return (
     <>
@@ -70,33 +81,33 @@ const HeroSection = () => {
 
               {/* Desktop: single row */}
               <div className="hidden md:grid md:grid-cols-4 gap-1.5" style={{ height: 46 }}>
-                <div className="flex items-center gap-2 px-3 rounded-lg" style={{ background: "rgba(255,255,255,0.08)" }}>
-                  <MapPin className="w-4 h-4 text-white/60 shrink-0" />
+                <div className={`flex items-center gap-2 px-3 rounded-lg ${fieldBg}`} style={fieldStyle}>
+                  <MapPin className={iconClass} />
                   <input
                     type="text"
                     placeholder="Location"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
-                    className="bg-transparent text-white placeholder:text-white/50 text-sm w-full outline-none font-body"
+                    className={inputClass}
                   />
                 </div>
-                <div className="flex items-center gap-2 px-3 rounded-lg" style={{ background: "rgba(255,255,255,0.08)" }}>
-                  <Users className="w-4 h-4 text-white/60 shrink-0" />
+                <div className={`flex items-center gap-2 px-3 rounded-lg ${fieldBg}`} style={fieldStyle}>
+                  <Users className={iconClass} />
                   <input
                     type="number"
                     placeholder="Attendees"
                     value={guests}
                     onChange={(e) => setGuests(e.target.value)}
-                    className="bg-transparent text-white placeholder:text-white/50 text-sm w-full outline-none font-body"
+                    className={inputClass}
                   />
                 </div>
-                <div className="flex items-center gap-2 px-3 rounded-lg" style={{ background: "rgba(255,255,255,0.08)" }}>
-                  <CalendarDays className="w-4 h-4 text-white/60 shrink-0" />
-                  <span className="text-sm text-white/50 font-body">Amenities</span>
+                <div className={`flex items-center gap-2 px-3 rounded-lg ${fieldBg}`} style={fieldStyle}>
+                  <CalendarDays className={iconClass} />
+                  <span className={sticky ? "text-sm text-muted-foreground font-body" : "text-sm text-white/50 font-body"}>Amenities</span>
                 </div>
                 <button
                   type="submit"
-                  className="h-full flex items-center justify-center gap-2 px-6 whitespace-nowrap rounded-lg font-semibold text-sm bg-black text-white border border-white hover:bg-zinc-900 cursor-pointer transition-colors"
+                  className={`h-full flex items-center justify-center gap-2 px-6 whitespace-nowrap rounded-lg font-semibold text-sm cursor-pointer transition-colors ${sticky ? 'bg-foreground text-background hover:opacity-90' : 'bg-black text-white border border-white hover:bg-zinc-900'}`}
                 >
                   <Search className="w-4 h-4" />
                   Search Now
@@ -105,24 +116,24 @@ const HeroSection = () => {
 
               {/* Mobile: 2x2 grid */}
               <div className="md:hidden grid grid-cols-2 gap-1.5" style={{ height: 42 }}>
-                <div className="flex items-center gap-2 px-3 rounded-lg" style={{ background: "rgba(255,255,255,0.08)" }}>
-                  <MapPin className="w-3 h-3 text-white/60 shrink-0" />
+                <div className={`flex items-center gap-2 px-3 rounded-lg ${fieldBg}`} style={fieldStyle}>
+                  <MapPin className={iconClassSm} />
                   <input
                     type="text"
                     placeholder="Location"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
-                    className="bg-transparent text-white placeholder:text-white/50 text-xs w-full outline-none font-body"
+                    className={inputClassSm}
                   />
                 </div>
-                <div className="flex items-center gap-2 px-3 rounded-lg" style={{ background: "rgba(255,255,255,0.08)" }}>
-                  <Users className="w-3 h-3 text-white/60 shrink-0" />
+                <div className={`flex items-center gap-2 px-3 rounded-lg ${fieldBg}`} style={fieldStyle}>
+                  <Users className={iconClassSm} />
                   <input
                     type="number"
                     placeholder="Attendees"
                     value={guests}
                     onChange={(e) => setGuests(e.target.value)}
-                    className="bg-transparent text-white placeholder:text-white/50 text-xs w-full outline-none font-body"
+                    className={inputClassSm}
                   />
                 </div>
               </div>

@@ -45,7 +45,7 @@ const Navbar = () => {
     <>
       <nav className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-1">
         {/* Left — Logo */}
-        <div className="w-[57px] md:w-[95px]">
+        <div className="w-[51px] md:w-[85px]">
           <Link to="/">
             <img src="https://www.strwedding.com/images/strlogo.webp" alt="STR Wedding" className="w-full h-auto" />
           </Link>
